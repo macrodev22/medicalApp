@@ -4,8 +4,74 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Medical App v1</title>
+    <link rel="stylesheet" href="css/icon-font-linea.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <h1>Our Medical App</h1>
+    <nav class="left-nav">
+      <div class="nav-btn">
+        <i class="icon icon-basic-home"></i>
+      </div>
+      <div class="nav-btn">
+        <i class="icon icon-basic-heart"></i>
+      </div>
+      <div class="nav-btn">
+        <i class="icon icon-basic-postcard"></i>
+      </div>
+      <div class="nav-btn">
+        <i class="icon icon-basic-eye-closed"></i>
+      </div>
+    </nav>
+    <main class="main-content">
+      <div class="header">
+        <a href="#" class="header-btn">Diagnosis</a>
+        <a href="#" class="header-btn">My Lungs</a>
+      </div>
+      <div class="content">
+        <h2>Overview <br />Conditions</h2>
+        <figure class="image-box">
+          <img src="img/lungs.jpg" alt="Lungs" />
+        </figure>
+      </div>
+    </main>
+    <div class="side-content">
+      <div class="col-left">
+        <div class="header">
+          <div class="search">
+            <input
+              type="text"
+              name="Search"
+              id="search"
+              placeholder="Search..."
+            />
+            <div class="icon-box">
+              <i class="icon icon-basic-magnifier"></i>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <h3 class="heading-tertiary">My Lung Condition</h3>
+          <div class="condition">
+            <div class="status">Status</div>
+            <div class="heart-rate">Heart rate</div>
+            <div class="blood-count">Bllod count</div>
+            <div class="glucose">Glucose</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-right">
+        <div class="header">
+          <div class="nav-btn">
+            <i class="icon icon-basic-smartphone"></i>
+          </div>
+          <div class="nav-btn">
+            <i class="icon icon-basic-alarm"></i>
+          </div>
+        </div>
+        <div class="content">
+          <h3 class="heading-tertiary">My Schedule</h3>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
