@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medical App v1: Signup</title>
+    <link rel="stylesheet" href="css/icon-font-linea.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+      import {
+        getFirestore,
+        getDoc,
+        collection,
+        query,
+        where,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCqyUD1yMSKahCSLI1Ki-p1Nw7qpAEnzsw",
+        authDomain: "medicaltestapp-90651.firebaseapp.com",
+        projectId: "medicaltestapp-90651",
+        storageBucket: "medicaltestapp-90651.appspot.com",
+        messagingSenderId: "321066244508",
+        appId: "1:321066244508:web:ca6106e71d00d53578d059",
+        measurementId: "G-EE4KDDG2L2",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      const db = getFirestore(app);
+
+      //My code here
+
+      const userTypesRef = collection(db, "user-types");
+      const q = query(userTypesRef);
+
+      const querySnapShot = await getDocs(q);
+      querySnapShot.forEach((doc) => {
+        console.log(doc.id, "=>", doc.data());
+        ui_data.userTypes.push({ key: doc.id, value: doc.data() });
+      });
+    </script>
+  </head>
+  <body>
+    <form action="#" method="post">
+      <fieldset>
+        <legend>User details</legend>
+        <div class="input-group">
+          <select name="type" id="usertype">
+            <option value="doctor">Doctor</option>
+            <option value="patient">Patient</option>
+          </select>
+        </div>
+      </fieldset>
+    </form>
+
+    <script>
+      const ui_data = {
+        userTypes: [],
+      };
+      const userTypesEl = document.querySelector("#usertype");
+      // Create user elemments
+      const userElements = [];
+      ui_data.userTypes.forEach((userType) => {
+        const html = `<option value="${userType.key}">${userType.value}</option>`;
+        userTypesEl.insertAdjacentElement("beforeend", html);
+      });
+    </script>
+  </body>
+</html>
