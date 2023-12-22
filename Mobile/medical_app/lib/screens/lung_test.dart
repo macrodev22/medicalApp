@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 class LungTestScreen extends StatefulWidget {
   const LungTestScreen({super.key});
@@ -13,6 +14,8 @@ class _LungTestScreenState extends State<LungTestScreen>
     with SingleTickerProviderStateMixin {
   late Animation _animation;
   late AnimationController _controller;
+  final String video = "assets/lung_test_video.mp4";
+  late VideoPlayerController videoController;
   double _sliderValue = 0;
   bool showTimer = false;
 
@@ -33,37 +36,53 @@ class _LungTestScreenState extends State<LungTestScreen>
     _animation.addListener(() {
       setState(() {});
     });
+
+    // The video Controller
+    videoController = VideoPlayerController.asset(video)
+      ..addListener(() => setState(() {}))
+      ..setLooping(true)
+      ..initialize().then((_) => videoController.play());
+  }
+
+  Widget AssetVideoPlayer() {
+    return AspectRatio(
+        aspectRatio: videoController.value.aspectRatio,
+        child: VideoPlayer(videoController));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Center(
-                child: Text(
-              'CHECK YOUR LUNGS',
-              style: TextStyle(fontSize: 35),
-            )),
-            Center(
-                child: Text(
-              "SAFE ZONE",
-              style: TextStyle(fontSize: 50, color: Colors.blue.shade200),
-            )),
-            showTimer
-                ? const BreathInTimer(seconds: 4)
-                : const Text("Get ready to breath in"),
-            Slider(
-              value: _animation.value,
-              onChanged: (val) {
-                _sliderValue = val;
-              },
-              label: "$_sliderValue",
-            )
-          ],
-        ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        iconTheme: const IconThemeData(color: Colors.amber),
+        foregroundColor: Colors.blueAccent.shade200,
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Center(
+              child: Text(
+            'CHECK YOUR LUNGS',
+            style: TextStyle(fontSize: 35),
+          )),
+          Center(
+              child: Text(
+            "HOLD YOUR BREATH",
+            style: TextStyle(fontSize: 38, color: Colors.blue.shade200),
+          )),
+          showTimer
+              ? const BreathInTimer(seconds: 4)
+              : const Text("Get ready to breath in"),
+          Slider(
+            value: _animation.value,
+            onChanged: (val) {
+              _sliderValue = val;
+            },
+            label: "$_sliderValue",
+          ),
+          SizedBox(height: 300, child: AssetVideoPlayer()),
+        ],
       ),
       floatingActionButton: LongPressFloatingActionButton(
         onPressed: () {
@@ -71,6 +90,7 @@ class _LungTestScreenState extends State<LungTestScreen>
             showTimer = false;
           });
           _controller.reset();
+          videoController.seekTo(Duration.zero);
         },
         content: const Icon(Icons.punch_clock_rounded),
         onLongPress: () {
@@ -78,10 +98,25 @@ class _LungTestScreenState extends State<LungTestScreen>
             showTimer = true;
           });
           _controller.forward();
+          videoController.seekTo(Duration.zero);
+          videoController.play();
         },
         onLongPressEnd: (details) {
           _sliderValue = _controller.value;
           _controller.stop();
+          videoController.pause();
+          // print("Slider value: $_sliderValue");
+          if (_sliderValue < .77) {
+            // print("Test not passed");
+            // Fluttertoast.showToast(msg: "Test not passed");
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text("Test not passed")));
+          } else {
+            // print("Test passed");
+            // Fluttertoast.showToast(msg: "Test Passed!!! 🏆😎");
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Test Passed!!! 🏆😎")));
+          }
         },
       ),
     );
@@ -90,6 +125,7 @@ class _LungTestScreenState extends State<LungTestScreen>
   @override
   void dispose() {
     _controller.dispose();
+    videoController.dispose();
     super.dispose();
   }
 }
@@ -157,29 +193,5 @@ class _BreathInTimerState extends State<BreathInTimer> {
         });
       }
     });
-  }
-}
-
-//Video
-class VideoPlayer extends StatefulWidget {
-  const VideoPlayer({super.key});
-
-  @override
-  State<VideoPlayer> createState() => _VideoPlayerState();
-}
-
-class _VideoPlayerState extends State<VideoPlayer> {
-  final String video = "assets/lung_test_video.mp4";
-  // VideoPlayerController controller;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

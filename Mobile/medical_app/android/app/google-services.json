@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "321066244508",
+    "project_id": "medicaltestapp-90651",
+    "storage_bucket": "medicaltestapp-90651.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:321066244508:android:7b8f63cb495545c378d059",
+        "android_client_info": {
+          "package_name": "com.example.medical_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwzK2t4iDP0spYufWKraB_VeEym3wXROg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
