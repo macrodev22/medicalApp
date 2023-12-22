@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 
 class LungTestScreen extends StatefulWidget {
   const LungTestScreen({super.key});
@@ -171,7 +170,7 @@ class VideoPlayer extends StatefulWidget {
 
 class _VideoPlayerState extends State<VideoPlayer> {
   final String video = "assets/lung_test_video.mp4";
-  VideoPlayerController controller;
+  // VideoPlayerController controller;
 
   @override
   void initState() {

@@ -52,17 +52,66 @@
     </script>
   </head>
   <body>
-    <form action="#" method="post">
-      <fieldset>
-        <legend>User details</legend>
-        <div class="input-group">
-          <select name="type" id="usertype">
-            <option value="doctor">Doctor</option>
-            <option value="patient">Patient</option>
-          </select>
+    <div class="register-container">
+      <div class="side-image">
+        <img
+          src="img/doctor-character-face-mask.jpg"
+          alt="Doctor with magnifier"
+        />
+      </div>
+      <form action="#" method="post" class="form">
+        <h2>Register</h2>
+        <fieldset>
+          <legend>User details</legend>
+          <div class="input-group">
+            <select name="type" id="usertype">
+              <option value="doctor">Doctor</option>
+              <option value="patient">Patient</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <input type="text" placeholder="Fullname" />
+            <label for="fullname">Fullname</label>
+          </div>
+          <div class="input-group">
+            <select name="gender" id="gender">
+              <option value="m">Male</option>
+              <option value="f">Female</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <input type="email" placeholder="Email" /><label for="email"
+              >Email</label
+            >
+          </div>
+
+          <div class="input-group">
+            <input
+              type="password"
+              name="password"
+              id="password1"
+              placeholder="Password"
+            /><label for="password1">Password</label>
+          </div>
+          <div class="input-group">
+            <input
+              type="password"
+              name="password2"
+              id="password2"
+              placeholder="Confirm Password"
+            /><label for="password1">Confirm Password</label>
+          </div>
+
+          <button class="btn primary w-full">Register</button>
+        </fieldset>
+        <div class="form-links">
+          <a href="index.html" class="link">Home</a>
+          <a href="signin.html" class="link">Log in</a>
         </div>
-      </fieldset>
-    </form>
+      </form>
+    </div>
 
     <script>
       const ui_data = {

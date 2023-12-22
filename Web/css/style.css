@@ -13,7 +13,9 @@ body {
   background-color: #efefef;
   display: flex;
   height: 100vh;
-  padding: 2rem; }
+  padding: 2rem;
+  justify-content: center;
+  overflow: hidden; }
 
 .left-nav {
   flex: 0 0 4rem;
@@ -79,6 +81,11 @@ body {
     border: 4px solid #fff;
     border-radius: 2rem;
     padding: .2rem; }
+
+.register-container {
+  display: flex;
+  height: 100vh;
+  margin: -2rem -2rem; }
 
 .nav-btn {
   width: 5rem;
@@ -227,8 +234,81 @@ body {
   .btn:hover, .btn:active {
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
 
+.side-image {
+  flex: 0 0 50%;
+  text-align: left; }
+  .side-image img {
+    object-fit: cover;
+    width: 100%; }
+
+.form {
+  flex: 1;
+  padding: 4rem 10rem;
+  max-width: 60rem; }
+  .form h2 {
+    margin-bottom: 2.5rem; }
+  .form fieldset {
+    background-color: #efefef;
+    padding: 2rem;
+    border-radius: 2rem; }
+  .form .btn {
+    justify-content: center; }
+
+.input-group {
+  margin-bottom: 2.5rem; }
+  .input-group input {
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    display: block;
+    width: 100%;
+    border: 4px solid #fff;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    border-bottom: 1px solid #4e90fb; }
+    .input-group input:placeholder-shown ~ label {
+      opacity: 0;
+      transform: translateY(-3rem); }
+    .input-group input:focus {
+      outline: none;
+      border-bottom: 2px solid #4e90fb; }
+  .input-group label {
+    display: block;
+    padding-left: 2rem;
+    color: #4e90fb;
+    font-size: 1rem;
+    transition: all .2s ease; }
+  .input-group select {
+    display: block;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 1rem 2rem;
+    border-radius: .5rem;
+    border: none;
+    border-bottom: 1px solid #4e90fb; }
+    .input-group select:focus {
+      outline: none;
+      border-bottom: 2px solid #4e90fb; }
+
+.form-links {
+  text-align: center; }
+  .form-links .link, .form-links .link:link, .form-links .link:visited {
+    text-decoration: none;
+    color: #9e9e9e;
+    border-radius: 2rem;
+    display: inline-block;
+    padding: 1rem 2rem;
+    margin: 1rem; }
+  .form-links .link:hover, .form-links .link:active {
+    color: #fff;
+    background-color: #0163ff; }
+
 .bg-gray {
   background-color: #efefef !important; }
 
 .mt-md {
   margin-top: 4rem !important; }
+
+.t-center {
+  text-align: center; }
