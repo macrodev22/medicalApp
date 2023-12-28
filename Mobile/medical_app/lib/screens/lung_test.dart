@@ -41,7 +41,7 @@ class _LungTestScreenState extends State<LungTestScreen>
     videoController = VideoPlayerController.asset(video)
       ..addListener(() => setState(() {}))
       ..setLooping(true)
-      ..initialize().then((_) => videoController.play());
+      ..initialize().then((_) => videoController.pause());
   }
 
   Widget AssetVideoPlayer() {
