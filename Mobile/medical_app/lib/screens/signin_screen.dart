@@ -41,8 +41,10 @@ class SigninScreen extends StatelessWidget {
             questionText: "Don't have an account yet?",
             buttonText: "Register",
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (ctx) => const SignupScreen()));
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (ctx) => const SignupScreen()),
+                  (route) => false);
             },
           )
         ],

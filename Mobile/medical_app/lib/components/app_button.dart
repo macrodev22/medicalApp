@@ -13,13 +13,14 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      icon: Icon(iconData),
+      icon: Icon(iconData, color: Colors.black),
       onPressed: onPressed,
       label: Container(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
         child: Text(
           label,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+          style: const TextStyle(
+              fontSize: 20, fontWeight: FontWeight.w300, color: Colors.black),
         ),
       ),
     );

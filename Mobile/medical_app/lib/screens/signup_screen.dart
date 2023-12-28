@@ -40,15 +40,18 @@ class SignupScreen extends StatelessWidget {
             isPasswordField: true,
           ),
           const Spacer(),
-          AppButton(label: "Log in", iconData: Icons.person, onPressed: () {}),
+          AppButton(
+              label: "Register", iconData: Icons.person, onPressed: () {}),
           // Foot functions
           const SizedBox(height: 20),
           FormBottomLinks(
             questionText: "Already have an account?",
             buttonText: "Log in",
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (ctx) => const SigninScreen()));
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (ctx) => const SigninScreen()),
+                  (route) => false);
             },
           )
         ],
