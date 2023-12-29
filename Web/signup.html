@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Medical App v1: Signup</title>
+    <script>
+      function showErrorMessage(message, code = "400") {
+        const errorEl = document.querySelector("#error");
+        const html = `${message} Error Code ${code}`;
+        errorEl.innerText = html;
+        errorEl.classList.add("show");
+        setTimeout(() => errorEl.classList.remove("show"), 4000);
+      }
+    </script>
     <link rel="stylesheet" href="css/icon-font-linea.css" />
     <link rel="stylesheet" href="css/style.css" />
     <script type="module">
@@ -53,9 +62,33 @@
         console.log(doc.id, "=>", doc.data());
         ui_data.userTypes.push({ key: doc.id, value: doc.data() });
       });
+
+      // Creating the user
+      const auth = getAuth();
+      const formEl = document.querySelector(".form");
+      formEl.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const email = formEl.querySelector("#email").value;
+        const password = formEl.querySelector("#password1").value;
+
+        createUserWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            //Signed up
+            console.log("User created successfully");
+            showErrorMessage("User created successfully");
+          })
+          .catch((e) => {
+            const errorCode = e.errorCode;
+            const errorMsg = e.errorMessage;
+            // console.log(e);
+            showErrorMessage(errorMsg);
+          });
+      });
     </script>
   </head>
   <body>
+    <div id="error"></div>
     <div class="register-container">
       <div class="side-image">
         <img
@@ -86,7 +119,8 @@
           </div>
 
           <div class="input-group">
-            <input type="email" placeholder="Email" /><label for="email"
+            <input type="email" placeholder="Email" id="email" /><label
+              for="email"
               >Email</label
             >
           </div>
