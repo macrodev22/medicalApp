@@ -3,8 +3,11 @@ import 'package:medical_app/components/app_button.dart';
 import 'package:medical_app/components/colors.dart';
 import 'package:medical_app/components/health_status_widget.dart';
 import 'package:medical_app/components/organ_card.dart';
+import 'package:medical_app/components/user_popover.dart';
+import 'package:medical_app/components/user_profile_button.dart';
 import 'package:medical_app/screens/lung_test.dart';
 import 'package:medical_app/screens/startup_screen.dart';
+import 'package:popover/popover.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({super.key});
@@ -61,15 +64,7 @@ class _UserScreenState extends State<UserScreen> {
                   children: [
                     Row(
                       children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage("assets/user-192.png")),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(100))),
-                        ),
+                        const UserProfileButton(),
                         const SizedBox(width: 10),
                         const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

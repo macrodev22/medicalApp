@@ -51,10 +51,8 @@ class StartScreen extends StatelessWidget {
                   iconData: Icons.arrow_drop_up,
                   onPressed: () {
                     // Go to signin page
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (ctx) => const SigninScreen()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (ctx) => SigninScreen()));
                   },
                 ),
                 const SizedBox(width: 10),

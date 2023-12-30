@@ -11,6 +11,7 @@ class FirebaseAuthService {
       return credential.user;
     } catch (e) {
       print("An error occured");
+      return null;
     }
   }
 
@@ -22,6 +23,11 @@ class FirebaseAuthService {
       return credential.user;
     } catch (e) {
       print("Unable to signin");
+      return null;
     }
+  }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 }
