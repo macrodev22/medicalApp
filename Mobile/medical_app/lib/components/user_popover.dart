@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medical_app/screens/startup_screen.dart';
 import 'package:medical_app/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
@@ -17,7 +16,7 @@ class UserPopover extends StatelessWidget {
           IconButton(
               onPressed: () {
                 // Log out
-                FirebaseAuthService().signOut();
+                FirebaseAuthService.signOut();
 
                 // Home page
                 Navigator.pushAndRemoveUntil(

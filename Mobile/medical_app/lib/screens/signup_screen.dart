@@ -37,7 +37,7 @@ class SignupScreen extends StatelessWidget {
           const SizedBox(height: 40),
           const FormFieldContainer(
             hintText: "Username",
-            isPasswordField: true,
+            isPasswordField: false,
           ),
           const Spacer(),
           AppButton(

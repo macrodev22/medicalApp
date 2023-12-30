@@ -10,7 +10,12 @@ import 'package:medical_app/screens/startup_screen.dart';
 import 'package:popover/popover.dart';
 
 class UserScreen extends StatefulWidget {
-  const UserScreen({super.key});
+  const UserScreen(
+      {super.key,
+      required this.userId,
+      required this.username,
+      required this.email});
+  final String userId, username, email;
 
   @override
   State<UserScreen> createState() => _UserScreenState();
@@ -64,13 +69,14 @@ class _UserScreenState extends State<UserScreen> {
                   children: [
                     Row(
                       children: [
-                        const UserProfileButton(),
+                        UserProfileButton(email: widget.email),
                         const SizedBox(width: 10),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Hello"),
-                            Text("Tom", style: TextStyle(fontSize: 22))
+                            const Text("Hello"),
+                            Text(widget.username,
+                                style: const TextStyle(fontSize: 22))
                           ],
                         ),
                         const Spacer(),

@@ -5,6 +5,7 @@ import 'package:medical_app/components/form_field_container.dart';
 import 'package:medical_app/screens/signup_screen.dart';
 import 'package:medical_app/screens/user_screen.dart';
 import 'package:medical_app/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+import 'package:medical_app/user_auth/firebase_firestore_services.dart';
 import '../components/colors.dart';
 
 class SigninScreen extends StatelessWidget {
@@ -58,15 +59,26 @@ class SigninScreen extends StatelessWidget {
                     //Save current form state
                     _formKey.currentState?.save();
 
-                    FirebaseAuthService firebaseAuth = FirebaseAuthService();
-                    firebaseAuth
-                        .signInWithEmailAndPassword(email, password)
-                        .then((user) {
+                    FirebaseAuthService.signInWithEmailAndPassword(
+                            email, password)
+                        .then((user) async {
                       if (user != null) {
+                        // get user display name
+                        CustomUser? _userDetails =
+                            await FirebaseFirestoreServices.getUser(user.uid);
+
+                        String displayName =
+                            _userDetails?.displayName ?? "User";
+
+                        if (!context.mounted) return;
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (ctx) => const UserScreen()),
+                                builder: (ctx) => UserScreen(
+                                      userId: user.uid,
+                                      username: displayName,
+                                      email: user.email!,
+                                    )),
                             (route) => false);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

@@ -3,7 +3,8 @@ import 'package:medical_app/components/user_popover.dart';
 import 'package:popover/popover.dart';
 
 class UserProfileButton extends StatelessWidget {
-  const UserProfileButton({super.key});
+  const UserProfileButton({super.key, required this.email});
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +14,7 @@ class UserProfileButton extends StatelessWidget {
           direction: PopoverDirection.bottom,
           height: 100,
           arrowHeight: 10,
-          bodyBuilder: (context) =>
-              const UserPopover(email: "isempe@email.com")),
+          bodyBuilder: (context) => UserPopover(email: email)),
       child: Container(
         width: 60,
         height: 60,

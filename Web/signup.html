@@ -8,6 +8,16 @@
       function showErrorMessage(message, code = "400") {
         const errorEl = document.querySelector("#error");
         const html = `${message} Error Code ${code}`;
+        const opacity = +window
+          .getComputedStyle(errorEl)
+          .getPropertyValue("opacity");
+        if (opacity > 0) {
+          return setTimeout(() => {
+            errorEl.innerText = html;
+            errorEl.classList.add("show");
+            setTimeout(() => errorEl.classList.remove("show"), 4000);
+          }, 2000);
+        }
         errorEl.innerText = html;
         errorEl.classList.add("show");
         setTimeout(() => errorEl.classList.remove("show"), 4000);
@@ -26,6 +36,8 @@
       import {
         getFirestore,
         getDoc,
+        doc,
+        setDoc,
         collection,
         query,
         where,
@@ -71,19 +83,49 @@
 
         const email = formEl.querySelector("#email").value;
         const password = formEl.querySelector("#password1").value;
+        const displayName = formEl.querySelector("#fullname").value;
+        const gender = formEl.querySelector("#gender").value;
+        const userType = formEl.querySelector("#usertype").value;
 
-        createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            //Signed up
-            console.log("User created successfully");
-            showErrorMessage("User created successfully");
-          })
-          .catch((e) => {
-            const errorCode = e.errorCode;
-            const errorMsg = e.errorMessage;
-            // console.log(e);
-            showErrorMessage(errorMsg);
-          });
+        // const user = { email, password, displayName, gender, userType };
+        // console.log(user);
+        (async () => {
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+          console.log("User created successfully");
+          const userId = userCredential.user.uid;
+          showErrorMessage("User created successfully");
+          // Signed up
+          // try {
+          //   userCredential.user.updateProfile({
+          //     displayName: displayName,
+          //   });
+          // } catch (err) {
+          //   console.log("Error updating profile");
+          //   showErrorMessage(err.errorMessage);
+          // }
+          console.log("User credential:", userCredential);
+          console.log("Writing user details to db");
+          try {
+            setDoc(doc(db, "users", userId), { gender, userType, displayName });
+            // db.collection("users").doc(userCredential.user.uid).set({
+            //   gender,
+            //   userType,
+            // });
+            console.log("User details added");
+          } catch (err) {
+            console.log("Error adding user details", err);
+          }
+        })().catch((e) => {
+          const errorCode = e.errorCode;
+          const errorMsg = e.errorMessage;
+          // console.log(e);
+          showErrorMessage(errorMsg);
+        });
       });
     </script>
   </head>
@@ -108,7 +150,7 @@
           </div>
 
           <div class="input-group">
-            <input type="text" placeholder="Fullname" />
+            <input type="text" placeholder="Fullname" id="fullname" />
             <label for="fullname">Fullname</label>
           </div>
           <div class="input-group">
