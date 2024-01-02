@@ -8,4 +8,8 @@ This is a combination of a Web and Mobile Medical application
 
 ## The Mobile Version
 
-![MobileApp](./Mobile/medical_app/Screenshot_1703263831.png)
+<p float="left">
+  <img src="./Mobile/medical_app/Screenshot_1703263831.png" width="200" />
+  <img src="./Mobile/medical_app/test_lung.png" width="200" /> 
+  <img src="./Mobile/medical_app/dash.png" width="200" />
+</p>
