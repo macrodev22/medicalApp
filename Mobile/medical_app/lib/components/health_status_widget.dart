@@ -36,9 +36,12 @@ class HealthStatus extends StatelessWidget {
           const SizedBox(width: 10),
           Column(
             children: [
-              Text(organ, style: const TextStyle(color: Colors.black)),
+              Text(organ,
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(color: Colors.black)),
               Text(
                 status,
+                textAlign: TextAlign.left,
                 style: TextStyle(color: active ? primary : Colors.black),
               ),
             ],

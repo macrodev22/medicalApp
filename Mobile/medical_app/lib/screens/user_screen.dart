@@ -5,8 +5,10 @@ import 'package:medical_app/components/health_status_widget.dart';
 import 'package:medical_app/components/organ_card.dart';
 import 'package:medical_app/components/user_popover.dart';
 import 'package:medical_app/components/user_profile_button.dart';
+import 'package:medical_app/screens/consult_screen.dart';
 import 'package:medical_app/screens/lung_test.dart';
 import 'package:medical_app/screens/startup_screen.dart';
+import 'package:medical_app/user_auth/firebase_firestore_services.dart';
 import 'package:popover/popover.dart';
 
 class UserScreen extends StatefulWidget {
@@ -14,41 +16,49 @@ class UserScreen extends StatefulWidget {
       {super.key,
       required this.userId,
       required this.username,
-      required this.email});
+      required this.email,
+      required this.user});
   final String userId, username, email;
+  final CustomUser user;
 
   @override
   State<UserScreen> createState() => _UserScreenState();
 }
 
 class _UserScreenState extends State<UserScreen> {
-  // Map<IconData, String, String, bool>
-  List<Map<String, dynamic>> organs = [
-    {
-      "icon": Icons.favorite_border,
-      "organ": "Heart Rate",
-      "status": "120 bpm",
-      "active": true
-    },
-    {
-      "icon": Icons.water_drop_outlined,
-      "organ": "Blood status",
-      "status": "80 - 90",
-      "active": false
-    },
-    {
-      "icon": Icons.bar_chart_outlined,
-      "organ": "Blood count",
-      "status": "120 bpm",
-      "active": false
-    },
-    {
-      "icon": Icons.table_rows_sharp,
-      "organ": "Glucose level",
-      "status": "9000/ml",
-      "active": false
-    },
-  ];
+  late List<Map<String, dynamic>> organs;
+  @override
+  void initState() {
+    super.initState();
+    // Map<IconData, String, String, bool>
+    organs = [
+      {
+        "icon": Icons.favorite_border,
+        "organ": "Heart Rate",
+        "status": widget.user.healthStats['heartRate'] ?? "Unmeasured",
+        "active": true
+      },
+      {
+        "icon": Icons.water_drop_outlined,
+        "organ": "Blood status",
+        "status": widget.user.healthStats['bloodStatus'] ?? "unmeasured",
+        "active": false
+      },
+      {
+        "icon": Icons.bar_chart_outlined,
+        "organ": "Blood count",
+        "status": widget.user.healthStats['bloodCount'] ?? "unmeasured",
+        "active": false
+      },
+      {
+        "icon": Icons.table_rows_sharp,
+        "organ": "Glucose level",
+        "status": widget.user.healthStats['glucoseLevel'] ?? "unmeasured",
+        "active": false
+      },
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,14 +115,22 @@ class _UserScreenState extends State<UserScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (ctx) =>
-                                          const LungTestScreen()));
+                                      builder: (ctx) => LungTestScreen(
+                                            user: widget.user,
+                                            userId: widget.userId,
+                                          )));
                             }),
                         const Spacer(),
                         AppButton(
                             label: "Consult",
                             iconData: Icons.message_rounded,
-                            onPressed: () {}),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (ctx) =>
+                                          ConsultScreen(user: widget.user)));
+                            }),
                       ],
                     )
                   ]),

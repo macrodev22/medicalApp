@@ -2,16 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
 class CustomUser {
-  const CustomUser(this.displayName, this.gender, this.userType);
-
+  const CustomUser(this.displayName, this.gender, this.userType, this.lungTests,
+      this.healthStats);
   final String displayName;
   final String userType;
   final String gender;
+  final List lungTests;
+  final Map<String, dynamic> healthStats;
 
   CustomUser.fromJSON(Map<String, dynamic> json)
       : displayName = json['displayName']!,
         gender = json['gender']!,
-        userType = json['userType']!;
+        userType = json['userType']!,
+        lungTests = json['lungTests'] ?? [],
+        healthStats = json['healthStats'] ?? {'bloodCount': 'unmeasured'};
 }
 
 class FirebaseFirestoreServices {
@@ -26,5 +30,13 @@ class FirebaseFirestoreServices {
     } else {
       return null;
     }
+  }
+
+  static Future<void> updateUserDetails(
+      String userId, String field, newData) async {
+    return await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .update({field: newData});
   }
 }

@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:medical_app/user_auth/firebase_firestore_services.dart';
 import 'package:video_player/video_player.dart';
 
 class LungTestScreen extends StatefulWidget {
-  const LungTestScreen({super.key});
+  const LungTestScreen({super.key, this.user, this.userId});
+  final CustomUser? user;
+  final String? userId;
 
   @override
   State<LungTestScreen> createState() => _LungTestScreenState();
@@ -105,6 +108,7 @@ class _LungTestScreenState extends State<LungTestScreen>
           _sliderValue = _controller.value;
           _controller.stop();
           videoController.pause();
+          bool passed = false;
           // print("Slider value: $_sliderValue");
           if (_sliderValue < .77) {
             // print("Test not passed");
@@ -116,6 +120,16 @@ class _LungTestScreenState extends State<LungTestScreen>
             // Fluttertoast.showToast(msg: "Test Passed!!! 🏆😎");
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("Test Passed!!! 🏆😎")));
+            passed = true;
+          }
+          // Add test record
+          if (widget.user != null) {
+            List tests = widget.user!.lungTests;
+            Map test = {'passed': passed, 'duration': (_sliderValue * 41) - 4};
+            tests.add(test);
+            // print(tests);
+            FirebaseFirestoreServices.updateUserDetails(
+                widget.userId!, 'lungTests', tests);
           }
         },
       ),

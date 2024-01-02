@@ -78,6 +78,7 @@ class SigninScreen extends StatelessWidget {
                                       userId: user.uid,
                                       username: displayName,
                                       email: user.email!,
+                                      user: _userDetails!,
                                     )),
                             (route) => false);
                       } else {

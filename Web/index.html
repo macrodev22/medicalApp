@@ -83,7 +83,7 @@
                 </div>
                 <div class="text">
                   <span>Heart Rate</span>
-                  120bpm
+                  <p id="heart-rate">120bpm</p>
                 </div>
               </div>
             </div>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="text">
                   <span>Blood count</span>
-                  80-90
+                  <p id="blood-count">80-90</p>
                 </div>
               </div>
             </div>
@@ -105,7 +105,7 @@
                 </div>
                 <div class="text">
                   <span>Glucose Level</span>
-                  233/ml
+                  <p id="glucose">233/ml</p>
                 </div>
               </div>
             </div>
@@ -221,10 +221,27 @@
           getDoc(userRef).then((docSnap) => {
             if (docSnap.exists()) {
               console.log("User data:", docSnap.data());
+
               const userData = docSnap.data();
               // Show details on UI
               const userEl = document.querySelector("#username");
-              userEl.innerText = `${userData.displayName} Lung Condition`;
+              userEl.innerText = `${userData.displayName} Health Condition`;
+
+              let healthStats = {
+                bloodCount: "Not measured",
+                bloodStatus: "Not measured",
+                glucoseLevel: "Not measured",
+                heartRate: "Not measured",
+              };
+
+              healthStats = userData.healthStats || healthStats;
+
+              const heartRateEl = document.querySelector("#heart-rate");
+              heartRateEl.textContent = healthStats.heartRate;
+              const bloodCountEl = document.querySelector("#blood-count");
+              bloodCountEl.textContent = healthStats.bloodCount;
+              const glucoseEl = document.querySelector("#glucose");
+              glucoseEl.textContent = healthStats.glucoseLevel;
             } else {
               // No user found
               console.log("No such user");
