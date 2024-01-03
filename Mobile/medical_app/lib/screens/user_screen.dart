@@ -27,9 +27,12 @@ class UserScreen extends StatefulWidget {
 
 class _UserScreenState extends State<UserScreen> {
   late List<Map<String, dynamic>> organs;
+  late String firstName;
   @override
   void initState() {
     super.initState();
+
+    firstName = widget.username.split(' ')[0];
     // Map<IconData, String, String, bool>
     organs = [
       {
@@ -85,7 +88,7 @@ class _UserScreenState extends State<UserScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text("Hello"),
-                            Text(widget.username,
+                            Text(firstName,
                                 style: const TextStyle(fontSize: 22))
                           ],
                         ),
