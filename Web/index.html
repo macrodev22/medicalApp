@@ -225,7 +225,8 @@
               const userData = docSnap.data();
               // Show details on UI
               const userEl = document.querySelector("#username");
-              userEl.innerText = `${userData.displayName} Health Condition`;
+              const firstName = userData.displayName.split(" ")[0];
+              userEl.innerText = `${firstName} Health Condition`;
 
               let healthStats = {
                 bloodCount: "Not measured",

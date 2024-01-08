@@ -16,6 +16,15 @@ body {
   padding: 2rem;
   justify-content: center;
   overflow: hidden; }
+  @media (max-width: 850px) {
+    body {
+      height: max-content;
+      overflow-y: auto; } }
+  @media (max-width: 1360px) {
+    body {
+      flex-direction: column;
+      height: auto;
+      overflow-y: scroll; } }
 
 .left-nav {
   flex: 0 0 4rem;
@@ -31,14 +40,26 @@ body {
     margin-top: -.2rem; }
   .left-nav > :last-child {
     margin-top: auto; }
+  @media (max-width: 1360px) {
+    .left-nav {
+      flex-direction: row; } }
 
 .header {
   display: flex;
   margin-bottom: 4rem; }
+  @media (max-width: 1360px) {
+    .header {
+      justify-content: center;
+      margin-top: 4rem; } }
 
 .main-content {
   flex: 0 0 35%;
   margin-right: 4rem; }
+  @media (max-width: 1360px) {
+    .main-content {
+      flex: 0 0 10%;
+      padding: 0 10%;
+      margin-bottom: 4rem; } }
   .main-content .content h2 {
     font-size: 5rem;
     font-weight: 500;
@@ -53,6 +74,10 @@ body {
   flex: 1;
   display: flex;
   margin-left: 4rem; }
+  @media (max-width: 750px) {
+    .side-content {
+      flex-direction: column;
+      margin-right: 4rem; } }
   .side-content .col-left {
     flex: 0 0 60%;
     margin-right: 4rem; }
@@ -91,6 +116,11 @@ body {
   display: flex;
   height: 100vh;
   margin: -2rem -2rem; }
+  @media (max-width: 850px) {
+    .register-container {
+      flex-direction: column-reverse;
+      height: auto;
+      align-items: center; } }
 
 #error {
   position: fixed;
@@ -262,11 +292,18 @@ body {
   .side-image img {
     object-fit: cover;
     width: 100%; }
+  @media (max-width: 850px) {
+    .side-image {
+      flex: 0 0 30%; } }
 
 .form {
   flex: 1;
   padding: 4rem 10rem;
   max-width: 60rem; }
+  @media (max-width: 850px) {
+    .form {
+      padding: 1rem 2rem;
+      width: 90%; } }
   .form h2 {
     margin-bottom: 2.5rem; }
   .form fieldset {
